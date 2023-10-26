@@ -1,5 +1,5 @@
-
 #include <WiFiManager.h>
+
 #include "buzzer.h"
 #include "screen.h"
 
@@ -7,6 +7,7 @@ WiFiManager wm;
 
 void setup(void)
 {
+  Serial.begin(115200);
   setupScreen();
   // setupBuzzer();
 
@@ -20,8 +21,12 @@ void setup(void)
   }
   else
   {
-    // if you get here you have connected to the WiFi
     Serial.println("connected...yeey :)");
+  }
+
+  if (WiFi.isConnected())
+  {
+   getLosses();
   }
 }
 
@@ -29,6 +34,7 @@ void loop()
 {
   wm.process();
 
-  test();
+  displayLosses1();
+  showTime();
   // playTones();
 }
