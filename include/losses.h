@@ -6,6 +6,7 @@
 #include <HTTPClient.h>
 #include <WiFiClientSecure.h>
 #include <ArduinoJson.h>
+#include "ntptime.h"
 
 extern String currentDate; 
 extern int currentDay;

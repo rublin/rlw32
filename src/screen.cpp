@@ -21,35 +21,19 @@ void setupScreen()
     u8f.setFontMode(0); // use u8g2 none transparent mode
 }
 
-void test()
-{
-    tft.setTextColor(TFT_RED);
-    tft.setCursor(0, 30);
-    tft.setFreeFont(&CourierCyr18pt8b);
-
-    tft.setTextColor(TFT_BLUE);
-    tft.println("Regular ascii does not print");
-    tft.println("Привіт....йїє"); // Cyrillic prints ok
-
-    u8f.setFont(u8g2_font_inr24_t_cyrillic);
-    u8f.setCursor(0, 200);
-    u8f.setForegroundColor(TFT_GREEN);
-    u8f.print("Привіт....йїє");
-}
-
 void showTime() {
   tft.fillScreen(TFT_BLACK);
 
   tft.setTextColor(TFT_YELLOW, TFT_BLACK);
-//   drawCentreString(DateTime.format("%d %b  %a"), 5);
+  drawCentreString(DateTime.format("%d %b  %a"), 5);
 
   tft.fillRect(10, 25, 28, 45, 0xC618);
   tft.fillRect(42, 25, 28, 45, 0xC618);
   tft.fillRect(93, 25, 28, 45, 0xC618);
   tft.fillRect(125, 25, 28, 45, 0xC618);
 
-//   String time = DateTime.format(DateFormatter::TIME_ONLY).substring(0, 5);
-//   drawTime(time, false);
+  String time = DateTime.format(DateFormatter::TIME_ONLY).substring(0, 5);
+  drawTime(time, false);
   drawWarDay("War day: " + String(currentDay));
 
   // 20 seconds
@@ -59,9 +43,9 @@ void showTime() {
     if ((i % 5) == 0) {
       int j = (i / 5) % 2;
       if (j == 0) {
-        // drawTime(time, true);
+        drawTime(time, true);
       } else {
-        // drawTime(time, false);
+        drawTime(time, false);
       }
     }
 
@@ -75,7 +59,7 @@ void showTime() {
       }
     }
 
-    tft.fillRect(0, 75, 160, 18, 0x3800);
+    tft.fillRect(0, 75, TFT_HEIGHT, 18, 0x3800);
     u8f.setFont(u8g2_font_9x15_t_cyrillic);
     u8f.setCursor(0 - i * PIXEL_SHIFT, 88);
     u8f.print(getIncreaseLine());
@@ -245,5 +229,5 @@ void drawTime(String time, bool hide) {
 }
 
 int calcXcenter(int w) {
-  return (160 - w) / 2;
+  return (TFT_HEIGHT - w) / 2;
 }

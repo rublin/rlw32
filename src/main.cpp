@@ -26,7 +26,8 @@ void setup(void)
 
   if (WiFi.isConnected())
   {
-   getLosses();
+    setupDateTime();
+    getLosses();
   }
 }
 

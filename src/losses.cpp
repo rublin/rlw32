@@ -71,7 +71,7 @@ void getLosses(){
           currentStats = data["stats"];
           currentIncrease = data["increase"];
 
-          // lastUpdated = DateTime.now();
+          lastUpdated = DateTime.now();
           Serial.println(currentDay);
         }
       }
