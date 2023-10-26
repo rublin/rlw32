@@ -1,5 +1,7 @@
 #include "ntptime.h"
 
+DoubleResetDetector* drd;
+
 void setupDateTime()
 {
   DateTime.setServer("ua.pool.ntp.org");
