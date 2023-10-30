@@ -61,16 +61,18 @@ void loop()
 {
   wm.process();
 
-  if (WiFi.isConnected()) {
+  if (WiFi.isConnected())
+  {
     time_t now = DateTime.now();
-    if ((now - lastUpdated) > SECONDS_IN_HOUR / 2) {
+    if ((now - lastUpdated) > SECONDS_IN_HOUR / 2)
+    {
       getLosses();
     }
 
     showTime();
-    displayLosses1();
+    displayLosses();
     showTime();
-    displayLosses2();
+    displayLosses(8);
   }
   // playTones();
 }

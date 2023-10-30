@@ -8,11 +8,9 @@
 
 String getValueWithIncrease(String param) {
   int increase = (int)currentIncrease[param];
-  // Serial.println(increase);
   int val = (int)currentStats[param];
-  // Serial.println(val);
   if (increase > 0) {
-    return String(val) + "  ( +" + increase + ")";
+    return String(val) + "  +" + increase;
   }
   return String(val);
 }
