@@ -6,6 +6,7 @@
 #include <TFT_eSPI.h>
 #include <U8g2_for_TFT_eSPI.h>
 #include "losses.h"
+#include "buzzer.h"
 
 #define VERSION "v0.0.1"
 

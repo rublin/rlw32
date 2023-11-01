@@ -13,6 +13,7 @@ extern int currentDay;
 extern JsonObject currentStats;
 extern JsonObject currentIncrease;
 extern time_t lastUpdated;
+extern const char units_matrix[15][30];
 
 String getValueWithIncrease(String param);
 String getValue(String param);

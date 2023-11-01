@@ -1,6 +1,4 @@
 #include <WiFiManager.h>
-
-#include "buzzer.h"
 #include "screen.h"
 
 WiFiManager wm;
@@ -19,7 +17,7 @@ void setup(void)
 {
   Serial.begin(115200);
   setupScreen();
-  // setupBuzzer();
+  setupBuzzer();
   drd = new DoubleResetDetector(DRD_TIMEOUT, DRD_ADDRESS);
 
   wm.setConfigPortalBlocking(false);

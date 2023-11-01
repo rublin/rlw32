@@ -116,7 +116,7 @@ int duration[] =
 void setupBuzzer()
 {
     pinMode(BUZZER, OUTPUT);
-    digitalWrite(BUZZER, HIGH);
+    digitalWrite(BUZZER, LOW);
 }
 
 void buzz(long frequency, long length)

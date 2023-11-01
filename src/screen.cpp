@@ -7,8 +7,6 @@ const int RSSI_MAX = -50;
 const int RSSI_MIN = -100;
 const int PIXEL_SHIFT = 8;
 const int CONFIG_PORTAL_TIMEOUT = 300;
-const char units_matrix[15][30] = {"personnel_units", "tanks", "armoured_fighting_vehicles", "artillery_systems", "mlrs", "aa_warfare_systems", "planes", "helicopters",
-                                   "vehicles_fuel_tanks", "warships_cutters", "cruise_missiles", "uav_systems", "special_military_equip", "atgm_srbm_systems", "submarines"};
 const char unit_names_matrix[15][30] = {"ос.складу", "танків", "ББМ", "арт.систем", "РСЗВ", "ППО", "літаків", "гелікоптерів",
                                         "авт.техніки", "кораблів", "крил.ракет", "БпЛА", "спец.техніки", "рак.комплеків", "підв.човнів"};
 const char unit_names_matrix2[15][30] = {"Ос. склад:", "Танки:", "ББМ:", "Арт.сист:", "РСЗВ:", "ППО:", "Літаки:", "Гелікопт.:",
@@ -27,6 +25,16 @@ void setupScreen()
 void showTime()
 {
   tft.fillScreen(TFT_BLACK);
+  DateTimeParts parts = DateTime.getParts();
+  int osIncrease = getIncrease(units_matrix[0]);
+
+  if (
+      osIncrease > 1000 &&
+      parts.getHours() > 9 && parts.getHours() < 19 && parts.getMinutes() == 0)
+  {
+    Serial.println("Starting to play tones");
+    playTones();
+  }
 
   String date = DateTime.format("%d %b  %a");
   drawCentreString(date, 25, TFT_YELLOW, u8g2_font_profont29_tr);
@@ -69,11 +77,11 @@ void showTime()
       }
     }
 
-    tft.fillRect(0, 140, TFT_HEIGHT, 25, 0x3800);
-    u8f.setForegroundColor(TFT_WHITE);
-    u8f.setFont(u8g2_font_10x20_t_cyrillic);
-    u8f.setCursor(0 - i * PIXEL_SHIFT, 160);
-    u8f.print(getIncreaseLine());
+    // tft.fillRect(0, 140, TFT_HEIGHT, 25, 0x3800);
+    // u8f.setForegroundColor(TFT_WHITE);
+    // u8f.setFont(u8g2_font_10x20_t_cyrillic);
+    // u8f.setCursor(0 - i * PIXEL_SHIFT, 160);
+    // u8f.print(getIncreaseLine());
 
     delay(100);
   }
@@ -82,7 +90,7 @@ void showTime()
 String getIncreaseLine()
 {
   String buffer = String("     ");
-  String result = String("За минулу добу знищено: ") ;
+  String result = String("За минулу добу знищено: ");
 
   for (int i = 0; i < sizeof(units_matrix); i++)
   {
@@ -151,13 +159,17 @@ void displayLosses(const int startFrom)
   u8f.setForegroundColor(TFT_WHITE);
 
   int y = 20; // starting position
-  for (int i = startFrom; i < sizeof(unit_names_matrix2); i++)
+  for (int i = startFrom; i < 15; i++)
   {
-    u8f.setCursor(0, y);
-    u8f.print(unit_names_matrix2[i]);
-    u8f.setCursor(180, y);
-    u8f.print(getValue(units_matrix[i]));
+    String name = unit_names_matrix2[i];
+    String value = getValue(units_matrix[i]);
     int increase = getIncrease(units_matrix[i]);
+    // Serial.println(String(name) + " " + value + " " + increase + " i=" + i);
+
+    u8f.setCursor(0, y);
+    u8f.print(name);
+    u8f.setCursor(180, y);
+    u8f.print(value);
     if (increase > 0)
     {
       u8f.setCursor(270, y);
@@ -165,8 +177,8 @@ void displayLosses(const int startFrom)
     }
     y = y + 30;
 
-    if (y > TFT_WIDTH){
-      Serial.println(y);
+    if (y > TFT_WIDTH)
+    {
       break;
     }
   }
