@@ -41,6 +41,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} 
-          asset_path: ${{ runner.temp }}/build/rlw32.ino.bin
-          asset_name: rlw-r-v0.0.${{ github.run_number }}.bin
+          asset_path: .pio/build/esp32dev/firmware.bin
+          asset_name: rlw32-v0.0.${{ github.run_number }}.bin
+          asset_content_type: application/octet-stream
+        
+      - name: Upload Release bin
+        id: upload-release-asset-e
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} 
+          asset_path: .pio/build/esp32dev/firmware.elf
+          asset_name: rlw32-v0.0.${{ github.run_number }}.elf
           asset_content_type: application/octet-stream
