@@ -8,7 +8,9 @@
 #include "losses.h"
 #include "buzzer.h"
 
-#define VERSION "v0.0.1"
+#ifndef VERSION
+  #define VERSION 0
+#endif
 
 extern TFT_eSPI tft;
 extern U8g2_for_TFT_eSPI u8f;
