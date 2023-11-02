@@ -15,13 +15,12 @@ extern U8g2_for_TFT_eSPI u8f;
 
 void setupScreen();
 void showTime();
+void drawIncreaseLine(String line, int i);
 void displayLosses(const int startFrom = 0);
-void printText(char *text, uint16_t color);
 String dBmtoPercentage(int dBm);
 void drawCentreString(const String &text, const int y, const uint16_t color, const uint8_t *font);
-void drawTime(String hour, String minute);
+void drawTime(DateTimeParts parts);
 void blinkColon(bool hide);
-void drawWarDay(String text);
 void drawWiFiParams(String text);
 String getIncreaseLine();
 void displayWiFiConnected();

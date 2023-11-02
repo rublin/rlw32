@@ -36,23 +36,17 @@ void showTime()
     playTones();
   }
 
-  String date = DateTime.format("%d %b  %a");
-  drawCentreString(date, 25, TFT_YELLOW, u8g2_font_profont29_tr);
-
-  String hour = DateTime.format("%H");
-  String minute = DateTime.format("%M");
-  drawTime(hour, minute);
-
+  drawCentreString(parts.format("%d %b  %a"), 25, TFT_YELLOW, u8g2_font_profont29_tr);
+  drawTime(parts);
   drawCentreString("День війни: " + String(currentDay), 200, TFT_YELLOW, u8g2_font_inr24_t_cyrillic);
-  // String increaseLine = getIncreaseLine();
+  String increaseLine = getIncreaseLine();
   // 20 seconds
   for (int i = 0; i < 200; i++)
   {
-
-    // half a second
-    if ((i % 5) == 0)
+    // one second
+    if ((i % 10) == 0)
     {
-      int j = (i / 5) % 2;
+      int j = (i / 10) % 2;
       if (j == 0)
       {
         blinkColon(true);
@@ -62,7 +56,6 @@ void showTime()
         blinkColon(false);
       }
     }
-
     // 5 seconds
     if ((i % 50) == 0)
     {
@@ -77,14 +70,18 @@ void showTime()
       }
     }
 
-    // tft.fillRect(0, 140, TFT_HEIGHT, 25, 0x3800);
-    // u8f.setForegroundColor(TFT_WHITE);
-    // u8f.setFont(u8g2_font_10x20_t_cyrillic);
-    // u8f.setCursor(0 - i * PIXEL_SHIFT, 160);
-    // u8f.print(increaseLine);
-
+    drawIncreaseLine(increaseLine, i * PIXEL_SHIFT);
     delay(100);
   }
+}
+
+void drawIncreaseLine(String line, int shift)
+{
+  tft.fillRect(0, 140, TFT_HEIGHT, 25, 0x3800);
+  u8f.setForegroundColor(TFT_WHITE);
+  u8f.setFont(u8g2_font_10x20_t_cyrillic);
+  u8f.setCursor(0 - shift, 160);
+  u8f.print(line);
 }
 
 String getIncreaseLine()
@@ -92,7 +89,7 @@ String getIncreaseLine()
   String buffer = String("           ");
   String result = String("За минулу добу знищено: ");
 
-  for (int i = 0; i < sizeof(units_matrix); i++)
+  for (int i = 0; i < 15; i++)
   {
     int unit = increases[i];
     if (unit > 0)
@@ -104,7 +101,6 @@ String getIncreaseLine()
       result = result + unit_names_matrix[i] + " " + unit;
     }
   }
-
   return buffer + result;
 }
 
@@ -213,8 +209,10 @@ void drawCentreString(const String &text, const int y, const uint16_t color, con
   u8f.print(text);
 }
 
-void drawTime(String hour, String minute)
+void drawTime(DateTimeParts parts)
 {
+  String hour = parts.format("%H");
+  String minute = parts.format("%M");
   tft.fillRoundRect(35, 44, 115, 88, 3, TFT_SILVER);
   tft.fillRoundRect(170, 44, 115, 88, 3, TFT_SILVER);
 
