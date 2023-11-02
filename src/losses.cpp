@@ -2,38 +2,12 @@
 
 String currentDate;
 int currentDay;
-JsonObject currentStats;
-JsonObject currentIncrease;
 time_t lastUpdated;
+int losses[15];
+int increases[15];
 
 const char units_matrix[15][30] = {"personnel_units", "tanks", "armoured_fighting_vehicles", "artillery_systems", "mlrs", "aa_warfare_systems", "planes", "helicopters",
                                    "vehicles_fuel_tanks", "warships_cutters", "cruise_missiles", "uav_systems", "special_military_equip", "atgm_srbm_systems", "submarines"};
-
-String getValueWithIncrease(String param)
-{
-  int increase = (int)currentIncrease[param];
-  int val = (int)currentStats[param];
-  if (increase > 0)
-  {
-    return String(val) + "  +" + increase;
-  }
-  return String(val);
-}
-
-String getValue(String param)
-{
-  return String((int)currentStats[param]);
-}
-
-int getIncrease(String param)
-{
-  int increase = (int)currentIncrease[param];
-  if (increase > 0)
-  {
-    return increase;
-  }
-  return 0;
-}
 
 void getLosses()
 {
@@ -79,8 +53,13 @@ void getLosses()
         {
           currentDate = date;
           currentDay = day;
-          currentStats = stats;
-          currentIncrease = increase;
+
+          for (int i = 0; i < 15; i++)
+          {
+            losses[i] = stats[units_matrix[i]];
+            increases[i] = increase[units_matrix[i]];
+            Serial.println(String("Losse: ") + losses[i] + "; increase: " + increases[i]);
+          }
 
           lastUpdated = DateTime.now();
           Serial.println(String("Updated losses. Day: ") + currentDay + ". Persons: " + persons);

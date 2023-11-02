@@ -8,16 +8,13 @@
 #include <ArduinoJson.h>
 #include "ntptime.h"
 
-extern String currentDate; 
+extern String currentDate;
 extern int currentDay;
-extern JsonObject currentStats;
-extern JsonObject currentIncrease;
 extern time_t lastUpdated;
 extern const char units_matrix[15][30];
+extern int losses[15];
+extern int increases[15];
 
-String getValueWithIncrease(String param);
-String getValue(String param);
-int getIncrease(String param);
 void getLosses();
 
 #endif

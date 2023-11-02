@@ -26,7 +26,7 @@ void showTime()
 {
   tft.fillScreen(TFT_BLACK);
   DateTimeParts parts = DateTime.getParts();
-  int osIncrease = getIncrease(units_matrix[0]);
+  int osIncrease = increases[0];
 
   if (
       osIncrease > 1000 &&
@@ -44,7 +44,7 @@ void showTime()
   drawTime(hour, minute);
 
   drawCentreString("День війни: " + String(currentDay), 200, TFT_YELLOW, u8g2_font_inr24_t_cyrillic);
-
+  // String increaseLine = getIncreaseLine();
   // 20 seconds
   for (int i = 0; i < 200; i++)
   {
@@ -81,7 +81,7 @@ void showTime()
     // u8f.setForegroundColor(TFT_WHITE);
     // u8f.setFont(u8g2_font_10x20_t_cyrillic);
     // u8f.setCursor(0 - i * PIXEL_SHIFT, 160);
-    // u8f.print(getIncreaseLine());
+    // u8f.print(increaseLine);
 
     delay(100);
   }
@@ -89,12 +89,12 @@ void showTime()
 
 String getIncreaseLine()
 {
-  String buffer = String("     ");
+  String buffer = String("           ");
   String result = String("За минулу добу знищено: ");
 
   for (int i = 0; i < sizeof(units_matrix); i++)
   {
-    int unit = getIncrease(units_matrix[i]);
+    int unit = increases[i];
     if (unit > 0)
     {
       if (i > 0)
@@ -105,7 +105,7 @@ String getIncreaseLine()
     }
   }
 
-  return buffer + result + buffer + result;
+  return buffer + result;
 }
 
 void drawWiFiParams(String text)
@@ -162,8 +162,8 @@ void displayLosses(const int startFrom)
   for (int i = startFrom; i < 15; i++)
   {
     String name = unit_names_matrix2[i];
-    String value = getValue(units_matrix[i]);
-    int increase = getIncrease(units_matrix[i]);
+    int value = losses[i];
+    int increase = increases[i];
     // Serial.println(String(name) + " " + value + " " + increase + " i=" + i);
 
     u8f.setCursor(0, y);
