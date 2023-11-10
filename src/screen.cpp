@@ -33,7 +33,9 @@ void showTime()
       parts.getHours() > 9 && parts.getHours() < 19 && parts.getMinutes() == 0)
   {
     Serial.println("Starting to play tones");
+    celebrate(osIncrease);
     playTones();
+    tft.fillScreen(TFT_BLACK);
   }
 
   drawCentreString(parts.format("%d %b  %a"), 25, TFT_YELLOW, u8g2_font_profont29_tr);
@@ -73,6 +75,21 @@ void showTime()
     drawIncreaseLine(increaseLine, i * PIXEL_SHIFT);
     delay(100);
   }
+}
+
+void celebrate(int looses)
+{
+  tft.fillScreen(TFT_BLACK);
+
+  drawCentreString("За минулу добу", 30, TFT_YELLOW, u8g2_font_inr24_t_cyrillic);
+  drawCentreString("знищено", 70, TFT_YELLOW, u8g2_font_inr24_t_cyrillic);
+  drawCentreString("окупантів", 210, TFT_YELLOW, u8g2_font_inr24_t_cyrillic);
+
+  u8f.setBackgroundColor(TFT_SILVER);
+  tft.fillRoundRect(50, 85, 220, 90, 4, TFT_SILVER);
+  drawCentreString(String(looses), 170, TFT_RED, u8g2_font_logisoso78_tn);
+  u8f.setBackgroundColor(TFT_BLACK);
+  drawCentreString("☠ ☠ ☠ ☠ ☠ ☠ ☠ ☠ ☠ ☠ ☠ ☠", 235, TFT_RED, u8g2_font_unifont_t_0_76);
 }
 
 void drawIncreaseLine(String line, int shift)
@@ -231,7 +248,7 @@ void drawTime(DateTimeParts parts)
   u8f.print(minute);
   u8f.setBackgroundColor(TFT_BLACK);
 
-  tft.drawWideLine(34, 88, 294, 88, 2, TFT_BLACK, TFT_BLACK);
+  // tft.drawWideLine(34, 88, 294, 88, 2, TFT_BLACK, TFT_BLACK);
   blinkColon(false);
 }
 

@@ -9,7 +9,7 @@
 #include "buzzer.h"
 
 #ifndef VERSION
-  #define VERSION 0
+#define VERSION 0
 #endif
 
 extern TFT_eSPI tft;
@@ -19,6 +19,7 @@ void setupScreen();
 void showTime();
 void drawIncreaseLine(String line, int i);
 void displayLosses(const int startFrom = 0);
+void celebrate(int looses);
 String dBmtoPercentage(int dBm);
 void drawCentreString(const String &text, const int y, const uint16_t color, const uint8_t *font);
 void drawTime(DateTimeParts parts);
