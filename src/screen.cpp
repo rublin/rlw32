@@ -9,8 +9,8 @@ const int PIXEL_SHIFT = 8;
 const int CONFIG_PORTAL_TIMEOUT = 300;
 const char unit_names_matrix[15][30] = {"ос.складу", "танків", "ББМ", "арт.систем", "РСЗВ", "ППО", "літаків", "гелікоптерів",
                                         "авт.техніки", "кораблів", "крил.ракет", "БпЛА", "спец.техніки", "рак.комплеків", "підв.човнів"};
-const char unit_names_matrix2[15][30] = {"Ос. склад:", "Танки:", "ББМ:", "Арт.сист:", "РСЗВ:", "ППО:", "Літаки:", "Гелікопт.:",
-                                         "Авто.техн:", "Кораблі:", "Крил.рак.:", "БпЛА:", "Спец.техн:", "Рак.компл:", "Підв.човн:"};
+const char unit_names_matrix2[15][30] = {"Ос. склад:", "Танки:", "ББМ:", "Арт.системи:", "РСЗВ:", "ППО:", "Літаки:", "Гелікоптери:",
+                                         "Авто.техніки:", "Кораблі:", "Крил.ракети:", "БпЛА:", "Спец.техніки:", "Ракетні компл:", "Підв.човни:"};
 
 void setupScreen()
 {
@@ -75,6 +75,7 @@ void showTime()
     drawIncreaseLine(increaseLine, i * PIXEL_SHIFT);
     delay(100);
   }
+  
 }
 
 void celebrate(int looses)
@@ -94,8 +95,9 @@ void celebrate(int looses)
 
 void drawIncreaseLine(String line, int shift)
 {
-  tft.fillRect(0, 140, TFT_HEIGHT, 25, 0x3800);
+  tft.fillRect(0, 140, TFT_HEIGHT, 25, ALMOST_BLACK);
   u8f.setForegroundColor(TFT_WHITE);
+  u8f.setBackgroundColor(ALMOST_BLACK);
   u8f.setFont(u8g2_font_10x20_t_cyrillic);
   u8f.setCursor(0 - shift, 160);
   u8f.print(line);
@@ -230,8 +232,8 @@ void drawTime(DateTimeParts parts)
 {
   String hour = parts.format("%H");
   String minute = parts.format("%M");
-  tft.fillRoundRect(35, 44, 115, 88, 3, TFT_SILVER);
-  tft.fillRoundRect(170, 44, 115, 88, 3, TFT_SILVER);
+  tft.fillRoundRect(35, 44, 115, 88, 4, TFT_SILVER);
+  tft.fillRoundRect(170, 44, 115, 88, 4, TFT_SILVER);
 
   u8f.setForegroundColor(TFT_BLUE);
   u8f.setBackgroundColor(TFT_SILVER);

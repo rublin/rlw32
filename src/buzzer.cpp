@@ -123,10 +123,7 @@ void buzz(long frequency, long length)
 {
 
     long delayValue = 1000000 / frequency / 2; // Berechnung des Verzögerungswertes zwischen den Übergängen
-    // 1 Sekunde in Mikrosekunden, geteilt durch die Frequenz und dann halbiert, da zu jedem Zyklus zwei Phasen vorhanden sind
-
     long numCycles = frequency * length / 1000; // Berechnung der Anzahl der Zyklen für das richtige Timing
-    // Frequenz, die die wirklichen Zyklen pro Sekunde ist, multipliziert mit der Anzahl der Sekunden,um die Gesamtzahl der Zyklen zu erhalten
 
     for (long i = 0; i < numCycles; i++)
     { // for the calculated length of time...
@@ -140,27 +137,18 @@ void buzz(long frequency, long length)
 
 void playTones()
 {
-
     int size = sizeof(notes) / sizeof(int);
-
-    Serial.println(size);
+    Serial.println(String("Going to play ") + size + " notes");
 
     for (int thisNote = 0; thisNote < size; thisNote++)
     {
-        Serial.println("thisNote:" + (String)thisNote);
-
         int noteDuration = duration[thisNote];
 
-        Serial.print("  buzz(" + (String)notes[thisNote] + " " + (String)noteDuration);
         if (notes[thisNote] > 0)
             buzz(notes[thisNote], noteDuration);
 
-        // Um die Noten zu unterscheiden, wird eine Mindestzeit zwischen ihnen festgelegt.
         int pauseBetweenNotes = noteDuration * 0.5;
-        Serial.print("  delay(" + (String)pauseBetweenNotes);
         delay(pauseBetweenNotes);
-
-        Serial.println("");
     }
-    digitalWrite(BUZZER, HIGH); // BUZZER aus (Low-Aktiv)
+    digitalWrite(BUZZER, HIGH);
 }

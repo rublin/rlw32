@@ -46,6 +46,10 @@ void setup(void)
       wm.setConnectTimeout(30);
       wm.setConnectRetries(5);
 
+  client->setTimeout(10);
+  https.setTimeout(10000);
+  client->setInsecure();
+  
       displayWiFiConnected();
       setupDateTime();
       getLosses();
@@ -62,9 +66,11 @@ void loop()
   if (WiFi.isConnected())
   {
     time_t now = DateTime.now();
-    if ((now - lastUpdated) > SECONDS_IN_HOUR / 2)
+    if ((now - lastUpdated) > SECONDS_IN_HOUR / 6)
     {
+      Serial.println(String("Free heap2: ") + ESP.getFreeHeap());
       getLosses();
+      Serial.println(String("Free heap3: ") + ESP.getFreeHeap());
     }
 
     showTime();
@@ -72,5 +78,4 @@ void loop()
     showTime();
     displayLosses(8);
   }
-  // playTones();
 }

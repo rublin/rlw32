@@ -5,15 +5,14 @@ int currentDay;
 time_t lastUpdated;
 int losses[15];
 int increases[15];
+  WiFiClientSecure *client = new WiFiClientSecure;
+  HTTPClient https;
 
 const char units_matrix[15][30] = {"personnel_units", "tanks", "armoured_fighting_vehicles", "artillery_systems", "mlrs", "aa_warfare_systems", "planes", "helicopters",
                                    "vehicles_fuel_tanks", "warships_cutters", "cruise_missiles", "uav_systems", "special_military_equip", "atgm_srbm_systems", "submarines"};
 
 void getLosses()
 {
-  WiFiClientSecure *client = new WiFiClientSecure;
-  HTTPClient https;
-  client->setInsecure();
   if (!https.begin(*client, "https://russianwarship.rip/api/v2/statistics/latest"))
   {
     Serial.println("BEGIN FAILED...");
@@ -58,17 +57,20 @@ void getLosses()
           {
             losses[i] = stats[units_matrix[i]];
             increases[i] = increase[units_matrix[i]];
-            Serial.println(String("Losse: ") + losses[i] + "; increase: " + increases[i]);
+            // Serial.println(String(units_matrix[i]) + String(" ... Losse: ") + losses[i] + "; increase: " + increases[i]);
           }
-
           lastUpdated = DateTime.now();
-          Serial.println(String("Updated losses. Day: ") + currentDay + ". Persons: " + persons);
+          Serial.println(String("Updated losses. Day: ") + currentDay + ". Persons: " + persons + ". Time: " + DateTime.format(DateFormatter::TIME_ONLY).c_str());
         }
         else
         {
           Serial.println("Failed to update losses.");
         }
+        // data.clear();
+        // stats.clear();
+        // increase.clear();
       }
+      // doc.clear();
     }
   }
   else
@@ -76,4 +78,9 @@ void getLosses()
     Serial.printf("[HTTPS] GET... failed, error: %s\n", https.errorToString(httpCode).c_str());
   }
   https.end();
+  client->stop();
+
+  // Serial.println(String("Free heap after HTTP: ") + ESP.getFreeHeap());
+  // free(client);
+  // Serial.println(String("Free heap after cleaning: ") + ESP.getFreeHeap());
 }

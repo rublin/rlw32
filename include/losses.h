@@ -8,6 +8,8 @@
 #include <ArduinoJson.h>
 #include "ntptime.h"
 
+extern WiFiClientSecure *client;
+extern HTTPClient https;
 extern String currentDate;
 extern int currentDay;
 extern time_t lastUpdated;

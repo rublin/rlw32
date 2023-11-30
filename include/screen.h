@@ -12,6 +12,8 @@
 #define VERSION 0
 #endif
 
+#define ALMOST_BLACK 0x2124//0x39C7
+
 extern TFT_eSPI tft;
 extern U8g2_for_TFT_eSPI u8f;
 
