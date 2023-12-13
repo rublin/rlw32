@@ -46,10 +46,10 @@ void setup(void)
       wm.setConnectTimeout(30);
       wm.setConnectRetries(5);
 
-  client->setTimeout(10);
-  https.setTimeout(10000);
-  client->setInsecure();
-  
+      client->setTimeout(10);
+      https.setTimeout(10000);
+      client->setInsecure();
+
       displayWiFiConnected();
       setupDateTime();
       getLosses();

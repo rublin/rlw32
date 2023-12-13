@@ -75,7 +75,6 @@ void showTime()
     drawIncreaseLine(increaseLine, i * PIXEL_SHIFT);
     delay(100);
   }
-  
 }
 
 void celebrate(int looses)

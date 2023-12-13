@@ -5,8 +5,8 @@ int currentDay;
 time_t lastUpdated;
 int losses[15];
 int increases[15];
-  WiFiClientSecure *client = new WiFiClientSecure;
-  HTTPClient https;
+WiFiClientSecure *client = new WiFiClientSecure;
+HTTPClient https;
 
 const char units_matrix[15][30] = {"personnel_units", "tanks", "armoured_fighting_vehicles", "artillery_systems", "mlrs", "aa_warfare_systems", "planes", "helicopters",
                                    "vehicles_fuel_tanks", "warships_cutters", "cruise_missiles", "uav_systems", "special_military_equip", "atgm_srbm_systems", "submarines"};
@@ -66,11 +66,7 @@ void getLosses()
         {
           Serial.println("Failed to update losses.");
         }
-        // data.clear();
-        // stats.clear();
-        // increase.clear();
       }
-      // doc.clear();
     }
   }
   else
@@ -79,8 +75,4 @@ void getLosses()
   }
   https.end();
   client->stop();
-
-  // Serial.println(String("Free heap after HTTP: ") + ESP.getFreeHeap());
-  // free(client);
-  // Serial.println(String("Free heap after cleaning: ") + ESP.getFreeHeap());
 }
