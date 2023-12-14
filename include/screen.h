@@ -13,6 +13,7 @@
 #endif
 
 #define ALMOST_BLACK 0x2124//0x39C7
+#define DARK_BLUE 0x0010
 
 extern TFT_eSPI tft;
 extern U8g2_for_TFT_eSPI u8f;

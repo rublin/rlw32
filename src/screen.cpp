@@ -34,7 +34,7 @@ void showTime()
   {
     Serial.println("Starting to play tones");
     celebrate(osIncrease);
-    playTones();
+    playImperial();
     tft.fillScreen(TFT_BLACK);
   }
 
@@ -255,12 +255,13 @@ void drawTime(DateTimeParts parts)
 
 void blinkColon(bool hide)
 {
-  tft.fillRect(TFT_HEIGHT / 2 - 10, 65, 20, 60, TFT_BLACK);
+  tft.fillRect(TFT_HEIGHT / 2 - 5, 65, 12, 48, TFT_BLACK);
+  u8f.setBackgroundColor(TFT_BLACK);
   u8f.setFont(u8g2_font_logisoso78_tn);
   u8f.setCursor(147, 120);
   if (hide)
   {
-    u8f.setForegroundColor(0x0010);
+    u8f.setForegroundColor(DARK_BLUE);
     u8f.print(":");
   }
   else
