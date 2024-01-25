@@ -119,7 +119,7 @@ String getIncreaseLine()
       result = result + unit_names_matrix[i] + " " + unit;
     }
   }
-  return buffer + result;
+  return buffer + result + buffer + result;
 }
 
 void drawWiFiParams(String text)
@@ -197,7 +197,7 @@ void displayLosses(const int startFrom)
     }
   }
 
-  delay(5000);
+  delay(LOSSES_DELAY);
 }
 
 String dBmtoPercentage(int dBm)
@@ -221,6 +221,7 @@ String dBmtoPercentage(int dBm)
 void drawCentreString(const String &text, const int y, const uint16_t color, const uint8_t *font)
 {
   u8f.setForegroundColor(color);
+  u8f.setBackgroundColor(TFT_BLACK);
   u8f.setFont(font);
   int width = u8f.getUTF8Width(text.c_str());
   u8f.setCursor(calcXcenter(width), y);

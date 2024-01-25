@@ -12,6 +12,10 @@
 #define VERSION 0
 #endif
 
+#ifndef LOSSES_DELAY
+#define LOSSES_DELAY 10000
+#endif
+
 #define ALMOST_BLACK 0x2124//0x39C7
 #define DARK_BLUE 0x0010
 
