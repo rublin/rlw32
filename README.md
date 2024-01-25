@@ -19,7 +19,7 @@ The watch displays the ʳussian losses in the current war in Ukraine. It uses th
 6. Enjoy the usage after the reboot
 7. Press reset if the time is incorrect or there is no data
 
-<a href="#"><img src="https://github.com/rublin/rlw32/blob/main/images/reset?raw=true" /></a>
+<a href="#"><img src="https://github.com/rublin/rlw32/blob/main/images/reset.jpg?raw=true" /></a>
 
 ## Update the firmware using OTA
 
@@ -27,7 +27,7 @@ The watch displays the ʳussian losses in the current war in Ukraine. It uses th
 2. Download the new release (you are interested in **.bin** file)
 3. Enter the initial config mode using "double reset" (press reset twice with a couple of seconds delay)
 
-<a href="#"><img src="https://github.com/rublin/rlw32/blob/main/images/reset?raw=true" /></a>
+<a href="#"><img src="https://github.com/rublin/rlw32/blob/main/images/reset.jpg?raw=true" /></a>
 
 4. Wait for the message **WiFi status: NOT connected**. 
 5. Open your browser and enter http://192.168.4.1
