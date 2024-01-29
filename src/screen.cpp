@@ -87,7 +87,7 @@ void celebrate(int looses)
 
   u8f.setBackgroundColor(TFT_SILVER);
   tft.fillRoundRect(50, 85, 220, 90, 4, TFT_SILVER);
-  drawCentreString(String(looses), 170, TFT_RED, u8g2_font_logisoso78_tn);
+  drawCentreString(String(looses), 170, TFT_RED, TFT_SILVER, u8g2_font_logisoso78_tn);
   u8f.setBackgroundColor(TFT_BLACK);
   drawCentreString("☠ ☠ ☠ ☠ ☠ ☠ ☠ ☠ ☠ ☠ ☠ ☠", 235, TFT_RED, u8g2_font_unifont_t_0_76);
 }
@@ -220,8 +220,13 @@ String dBmtoPercentage(int dBm)
 
 void drawCentreString(const String &text, const int y, const uint16_t color, const uint8_t *font)
 {
+  drawCentreString(text, y, color, TFT_BLACK, font);
+}
+
+void drawCentreString(const String &text, const int y, const uint16_t color, const uint16_t backgroundColor, const uint8_t *font)
+{
   u8f.setForegroundColor(color);
-  u8f.setBackgroundColor(TFT_BLACK);
+  u8f.setBackgroundColor(backgroundColor);
   u8f.setFont(font);
   int width = u8f.getUTF8Width(text.c_str());
   u8f.setCursor(calcXcenter(width), y);
