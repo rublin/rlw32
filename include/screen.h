@@ -28,7 +28,10 @@ void drawIncreaseLine(String line, int i);
 void displayLosses(const int startFrom = 0);
 void celebrate(int looses);
 String dBmtoPercentage(int dBm);
+
 void drawCentreString(const String &text, const int y, const uint16_t color, const uint8_t *font);
+void drawCentreString(const String &text, const int y, const uint16_t color, const uint16_t backgroundColor, const uint8_t *font);
+
 void drawTime(DateTimeParts parts);
 void blinkColon(bool hide);
 void drawWiFiParams(String text);
