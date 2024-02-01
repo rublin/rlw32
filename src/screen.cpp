@@ -29,7 +29,7 @@ void showTime()
   int osIncrease = increases[0];
 
   if (
-      osIncrease > 1000 &&
+      osIncrease >= 1000 &&
       parts.getHours() > 9 && parts.getHours() < 19 && parts.getMinutes() == 0)
   {
     Serial.println("Starting to play tones");
