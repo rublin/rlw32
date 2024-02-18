@@ -66,7 +66,7 @@ void loop()
   if (WiFi.isConnected())
   {
     time_t now = DateTime.now();
-    if ((now - lastUpdated) > SECONDS_IN_HOUR / 6)
+    if ((now - lastUpdated) > SECONDS_IN_HOUR / 60)
     {
       Serial.println(String("Free heap2: ") + ESP.getFreeHeap());
       getLosses();

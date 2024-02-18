@@ -30,7 +30,12 @@ void showTime()
 
   if (
       osIncrease >= 1000 &&
-      parts.getHours() > 9 && parts.getHours() < 19 && parts.getMinutes() == 0)
+      parts.getHours() > 9 && parts.getHours() < 19 && 
+      (parts.getMinutes() == 0 ||
+      parts.getMinutes() == 55 ||
+      parts.getMinutes() == 45 ||
+      parts.getMinutes() == 50)
+      )
   {
     Serial.println("Starting to play tones");
     celebrate(osIncrease);
@@ -42,6 +47,10 @@ void showTime()
   drawTime(parts);
   drawCentreString("День війни: " + String(currentDay), 200, TFT_YELLOW, u8g2_font_inr24_t_cyrillic);
   String increaseLine = getIncreaseLine();
+  Serial.println("11111111");
+  displayFreeHeap();
+  Serial.println("222222222");
+
   // 20 seconds
   for (int i = 0; i < 200; i++)
   {
@@ -130,6 +139,21 @@ void drawWiFiParams(String text)
   int width = u8f.getUTF8Width(text.c_str());
   u8f.setCursor(calcXcenter(width), 235);
   u8f.print(text);
+}
+
+void displayFreeHeap()
+{
+  String freeHeap = String("Free heap: ") + ESP.getFreeHeap();
+  Serial.println(freeHeap);
+  u8f.setForegroundColor(TFT_WHITE);
+  u8f.setFont(u8g2_font_9x15_t_cyrillic);
+
+  int width = u8f.getUTF8Width(freeHeap.c_str());
+  u8f.setCursor(calcXcenter(width), 217);
+  if (SHOW_FREE_HEAP)
+  {
+    u8f.print(freeHeap);
+  }
 }
 
 void displayWiFiConnected()
