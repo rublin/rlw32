@@ -12,6 +12,10 @@
 #define VERSION 0
 #endif
 
+#ifndef SHOW_FREE_HEAP
+#define SHOW_FREE_HEAP false
+#endif
+
 #ifndef LOSSES_DELAY
 #define LOSSES_DELAY 10000
 #endif
@@ -38,6 +42,7 @@ void drawWiFiParams(String text);
 String getIncreaseLine();
 void displayWiFiConnected();
 void displayWiFiConfiguration();
+void displayFreeHeap();
 int calcXcenter(int w);
 
 #endif

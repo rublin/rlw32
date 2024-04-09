@@ -9,8 +9,8 @@ const int PIXEL_SHIFT = 8;
 const int CONFIG_PORTAL_TIMEOUT = 300;
 const char unit_names_matrix[15][30] = {"ос.складу", "танків", "ББМ", "арт.систем", "РСЗВ", "ППО", "літаків", "гелікоптерів",
                                         "авт.техніки", "кораблів", "крил.ракет", "БпЛА", "спец.техніки", "рак.комплеків", "підв.човнів"};
-const char unit_names_matrix2[15][30] = {"Ос. склад:", "Танки:", "ББМ:", "Арт.системи:", "РСЗВ:", "ППО:", "Літаки:", "Гелікоптери:",
-                                         "Авто.техніки:", "Кораблі:", "Крил.ракети:", "БпЛА:", "Спец.техніки:", "Ракетні компл:", "Підв.човни:"};
+const char unit_names_matrix2[15][30] = {"Ос. склад", "Танки", "ББМ", "Арт.системи", "РСЗВ", "ППО", "Літаки", "Гелікоптери",
+                                         "Авто.техніки", "Кораблі", "Крил.ракети", "БпЛА", "Спец.техніки", "Ракетні компл", "Підв.човни"};
 
 void setupScreen()
 {
@@ -42,6 +42,8 @@ void showTime()
   drawTime(parts);
   drawCentreString("День війни: " + String(currentDay), 200, TFT_YELLOW, u8g2_font_inr24_t_cyrillic);
   String increaseLine = getIncreaseLine();
+  displayFreeHeap();
+
   // 20 seconds
   for (int i = 0; i < 200; i++)
   {
@@ -132,6 +134,21 @@ void drawWiFiParams(String text)
   u8f.print(text);
 }
 
+void displayFreeHeap()
+{
+  String freeHeap = String("Free heap: ") + ESP.getFreeHeap();
+  Serial.println(freeHeap);
+  u8f.setForegroundColor(TFT_WHITE);
+  u8f.setFont(u8g2_font_9x15_t_cyrillic);
+
+  int width = u8f.getUTF8Width(freeHeap.c_str());
+  u8f.setCursor(calcXcenter(width), 217);
+  if (SHOW_FREE_HEAP)
+  {
+    u8f.print(freeHeap);
+  }
+}
+
 void displayWiFiConnected()
 {
   tft.fillScreen(TFT_BLACK);
@@ -180,13 +197,16 @@ void displayLosses(const int startFrom)
     int increase = increases[i];
     // Serial.println(String(name) + " " + value + " " + increase + " i=" + i);
 
+    int lossesWidth = u8f.getUTF8Width(String(value).c_str());
+
     u8f.setCursor(0, y);
     u8f.print(name);
-    u8f.setCursor(180, y);
+    u8f.setCursor(TFT_HEIGHT - 100 - lossesWidth, y);
     u8f.print(value);
     if (increase > 0)
     {
-      u8f.setCursor(270, y);
+      int increaseWidth = u8f.getUTF8Width(String(increase).c_str());
+      u8f.setCursor(TFT_HEIGHT - 20 - increaseWidth, y);
       u8f.print("+" + String(increase));
     }
     y = y + 30;
