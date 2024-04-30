@@ -18,6 +18,7 @@ void getLosses()
     Serial.println("BEGIN FAILED...");
   }
   https.addHeader("accept", "application/json");
+  https.setTimeout(5000);
   int httpCode = https.GET();
   // httpCode will be negative on error
   if (httpCode > 0)

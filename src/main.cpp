@@ -25,6 +25,8 @@ void setup(void)
   wm.setWiFiAutoReconnect(true);
   wm.setConfigPortalTimeoutCallback(configPortalTimeoutCallback);
   wm.setShowInfoUpdate(true);
+  wm.setConnectTimeout(30);
+  wm.setConnectRetries(5);
 
   if (drd->detectDoubleReset())
   {
@@ -43,8 +45,6 @@ void setup(void)
     {
       // if you get here you have connected to the WiFi
       Serial.println("connected...yeey :)");
-      wm.setConnectTimeout(30);
-      wm.setConnectRetries(5);
 
       client->setTimeout(10);
       https.setTimeout(10000);
@@ -77,5 +77,10 @@ void loop()
     displayLosses();
     showTime();
     displayLosses(8);
+  }
+  else if (!wm.getConfigPortalActive())
+  {
+    Serial.println("WiFi connection lost. Trying to reconnect...");
+    ESP.restart();
   }
 }
