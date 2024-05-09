@@ -257,11 +257,9 @@ void drawTime(DateTimeParts parts)
 {
   String hour = parts.format("%H");
   String minute = parts.format("%M");
-  tft.fillRoundRect(35, 44, 115, 88, 4, TFT_SILVER);
-  tft.fillRoundRect(170, 44, 115, 88, 4, TFT_SILVER);
 
-  u8f.setForegroundColor(TFT_BLUE);
-  u8f.setBackgroundColor(TFT_SILVER);
+  u8f.setForegroundColor(TFT_WHITE);
+  u8f.setBackgroundColor(TFT_BLACK);
   u8f.setFont(u8g2_font_logisoso78_tn);
 
   int width = u8f.getUTF8Width(hour.c_str());
@@ -275,7 +273,6 @@ void drawTime(DateTimeParts parts)
   u8f.print(minute);
   u8f.setBackgroundColor(TFT_BLACK);
 
-  // tft.drawWideLine(34, 88, 294, 88, 2, TFT_BLACK, TFT_BLACK);
   blinkColon(false);
 }
 
@@ -287,12 +284,12 @@ void blinkColon(bool hide)
   u8f.setCursor(147, 120);
   if (hide)
   {
-    u8f.setForegroundColor(DARK_BLUE);
+    u8f.setForegroundColor(TFT_DARKGREY);
     u8f.print(":");
   }
   else
   {
-    u8f.setForegroundColor(TFT_BLUE);
+    u8f.setForegroundColor(TFT_WHITE);
     u8f.print(":");
   }
 }
